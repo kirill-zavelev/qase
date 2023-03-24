@@ -1,5 +1,9 @@
 package io.qase.app.page;
 
+import com.codeborne.selenide.Command;
+import com.codeborne.selenide.Selenide;
+import com.codeborne.selenide.SelenideElement;
+import com.codeborne.selenide.commands.PressEnter;
 import io.qase.app.dto.Project;
 import io.qase.app.wrapper.InputText;
 import org.openqa.selenium.By;
@@ -24,14 +28,47 @@ public class RepositoryPage {
     public Project getProject() {
         clickSettings();
         return Project.builder()
-                .projectName(getProjectInfo("Project name"))
-                .projectCode(getProjectInfo("Project code"))
+                .projectName($(By.id("project-name")).shouldBe(visible, enabled).getAttribute("value"))
+                .projectCode($(By.id("project-code")).shouldBe(visible, enabled).getAttribute("value"))
+                .description($(By.id("description-area")).shouldBe(visible, enabled).getText())
                 .build();
+    }
+
+    public RepositoryPage updateProjectSettings(Project project) {
+        $(By.id("project-name")).shouldBe(visible, enabled).clear();
+        $(By.id("project-name")).shouldBe(visible, enabled).sendKeys(project.getProjectName());
+        $(By.id("project-code")).shouldBe(visible, enabled).clear();
+        $(By.id("project-code")).shouldBe(visible, enabled).sendKeys(project.getProjectCode());
+        $(By.id("description-area")).shouldBe(visible, enabled).clear();
+        $(By.id("description-area")).shouldBe(visible, enabled).sendKeys(project.getDescription());
+        $(By.xpath("//span[text()=' Update settings']")).shouldBe(visible, enabled).click();
+        return this;
+    }
+
+    public RepositoryPage clickDeleteProject() {
+        $(By.xpath("//span[text()=' Delete project']")).shouldBe(visible, enabled).click();
+        return this;
+    }
+
+    public ProjectsPage confirmDeletion() {
+        $(By.xpath("//div[@id='modals']//span[text()='Delete project']")).click();
+        return new ProjectsPage();
+    }
+
+    public String getDeleteAlert() {
+        return $(By.xpath("//div[@role='dialog']//small")).shouldBe(visible).getText();
+    }
+
+    public String getAlertMessage() {
+        return $(By.xpath("//div[@role='alert']//span//span")).shouldBe(visible).getText();
+    }
+
+    public RepositoryPage goToRepository() {
+        $(By.xpath("//span[text()='Repository']")).shouldBe(visible, enabled).click();
+        return this;
     }
 
     private void clickSettings() {
         $(SETTINGS_LOCATOR).shouldBe(visible, enabled).click();
     }
-
-
 }

@@ -1,7 +1,6 @@
 package io.qase.app.page;
 
 import io.qase.app.dto.Project;
-import io.qase.app.wrapper.Input;
 import org.openqa.selenium.By;
 
 import static com.codeborne.selenide.Condition.enabled;
@@ -10,13 +9,16 @@ import static com.codeborne.selenide.Selenide.$;
 
 public class NewProjectModalPage {
 
-    public static final By CREATE_PROJECT_BTN = By.xpath("//span[text()='Create project']");
+    private static final By CREATE_PROJECT_BTN = By.xpath("//span[text()='Create project']");
+    private static final By PROJECT_NAME_INPUT = By.id("project-name");
+    private static final By PROJECT_CODE_INPUT = By.id("project-code");
+    private static final By DESCRIPTION_INPUT = By.id("description-area");
 
     public NewProjectModalPage fillInProjectInfo(Project project) {
-        $(By.id("project-name")).shouldBe(visible, enabled).sendKeys(project.getProjectName());
-        $(By.id("project-code")).shouldBe(visible, enabled).sendKeys(project.getProjectCode());
-//        new Input("Project name").fillIn(project.getProjectName());
-//        new Input("Project code").fillIn(project.getProjectCode());
+        $(PROJECT_NAME_INPUT).shouldBe(visible, enabled).sendKeys(project.getProjectName());
+        $(DESCRIPTION_INPUT).sendKeys(project.getDescription());
+        $(PROJECT_CODE_INPUT).clear();
+        $(PROJECT_CODE_INPUT).sendKeys(project.getProjectCode());
         return this;
     }
 
