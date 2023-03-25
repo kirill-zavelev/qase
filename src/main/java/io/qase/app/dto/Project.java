@@ -13,6 +13,4 @@ public class Project {
     private String projectName;
     private String projectCode;
     private String description;
-//    private String projectAccessType;
-//    private String memberAccess;
 }

@@ -1,13 +1,12 @@
 package io.qase.app;
 
-import org.testng.annotations.BeforeClass;
-
-import static com.codeborne.selenide.WebDriverRunner.getWebDriver;
+import com.codeborne.selenide.Selenide;
+import org.testng.annotations.AfterMethod;
 
 public class BaseTest {
 
-    @BeforeClass
-    public void setUp() {
-        getWebDriver().manage().window().maximize();
+    @AfterMethod
+    public void tearDown() {
+        Selenide.closeWebDriver();
     }
 }

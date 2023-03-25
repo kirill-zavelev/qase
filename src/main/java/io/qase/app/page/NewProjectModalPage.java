@@ -22,8 +22,8 @@ public class NewProjectModalPage {
         return this;
     }
 
-    public RepositoryPage saveProject() {
+    public ProjectPage saveProject() {
         $(CREATE_PROJECT_BTN).click();
-        return new RepositoryPage();
+        return new ProjectPage();
     }
 }

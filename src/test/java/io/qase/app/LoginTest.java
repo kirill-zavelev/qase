@@ -5,13 +5,16 @@ import org.testng.annotations.Test;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-public class LoginTest {
+public class LoginTest extends BaseTest {
 
     @Test
     public void checkSuccessfulLogin() {
         final String email = "kiri4by@gmail.com";
         final String password = "31199620Kirill";
-        boolean isUserLoggedIn = new LoginPage().open().login(email, password).isOpened();
+        boolean isUserLoggedIn = new LoginPage()
+                .open()
+                .login(email, password)
+                .isOpened();
         assertThat(isUserLoggedIn)
                 .as("User was not logged in")
                 .isTrue();
