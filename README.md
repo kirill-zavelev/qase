@@ -7,6 +7,6 @@
    <li>Check created project is displayed on SettingsPage with project name, project code, description</li>
    <li>Check updated project is displayed on ProjectPage with updated project name, project code</li>
    <li>Check updated project is displayed on SettingsPage with updated project name, project code, description</li>
-   <li>Check that product can be deleted in SettingsPage</li>
-   <li>Check that product can be deleted in ProjectsPage</li>
+   <li>Check that project can be deleted in SettingsPage</li>
+   <li>Check that project can be deleted in ProjectsPage</li>
 </ol>
