@@ -1,6 +1,6 @@
-package io.qase.app.page;
+package io.qase.app.ui.page;
 
-import io.qase.app.dto.Project;
+import io.qase.app.ui.dto.Project;
 import org.openqa.selenium.By;
 
 import static com.codeborne.selenide.Condition.enabled;

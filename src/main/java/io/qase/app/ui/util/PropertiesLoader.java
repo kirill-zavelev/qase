@@ -1,4 +1,4 @@
-package io.qase.app.util;
+package io.qase.app.ui.util;
 
 import java.io.IOException;
 import java.io.InputStream;

@@ -9,14 +9,15 @@
     <version>1.0-SNAPSHOT</version>
 
     <properties>
-        <maven.compiler.source>11</maven.compiler.source>
-        <maven.compiler.target>11</maven.compiler.target>
+        <maven.compiler.source>20</maven.compiler.source>
+        <maven.compiler.target>20</maven.compiler.target>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <assertj.version>3.24.2</assertj.version>
         <testng.version>7.7.1</testng.version>
         <selenide.version>6.12.3</selenide.version>
         <lombok.version>1.18.26</lombok.version>
         <faker.version>1.0.2</faker.version>
+        <rest-assured.version>5.3.0</rest-assured.version>
     </properties>
     <dependencies>
         <dependency>
@@ -49,6 +50,12 @@
             <groupId>com.github.javafaker</groupId>
             <artifactId>javafaker</artifactId>
             <version>${faker.version}</version>
+        </dependency>
+        <!-- https://mvnrepository.com/artifact/io.rest-assured/rest-assured -->
+        <dependency>
+            <groupId>io.rest-assured</groupId>
+            <artifactId>rest-assured</artifactId>
+            <version>${rest-assured.version}</version>
         </dependency>
     </dependencies>
 </project>

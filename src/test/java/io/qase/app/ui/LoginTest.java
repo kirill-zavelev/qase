@@ -1,7 +1,7 @@
-package io.qase.app;
+package io.qase.app.ui;
 
-import io.qase.app.page.LoginPage;
-import io.qase.app.util.PropertiesLoader;
+import io.qase.app.ui.page.LoginPage;
+import io.qase.app.ui.util.PropertiesLoader;
 import org.testng.annotations.Test;
 
 import static org.assertj.core.api.Assertions.assertThat;

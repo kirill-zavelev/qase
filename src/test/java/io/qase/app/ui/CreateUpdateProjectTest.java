@@ -1,12 +1,12 @@
-package io.qase.app;
+package io.qase.app.ui;
 
 import com.github.javafaker.Faker;
-import io.qase.app.dto.Project;
-import io.qase.app.page.LoginPage;
-import io.qase.app.page.ProjectPage;
-import io.qase.app.page.ProjectsPage;
-import io.qase.app.page.SettingsPage;
-import io.qase.app.step.ProjectSteps;
+import io.qase.app.ui.dto.Project;
+import io.qase.app.ui.page.LoginPage;
+import io.qase.app.ui.page.ProjectPage;
+import io.qase.app.ui.page.ProjectsPage;
+import io.qase.app.ui.page.SettingsPage;
+import io.qase.app.ui.step.ProjectSteps;
 import org.testng.annotations.*;
 
 import java.util.ArrayList;
