@@ -28,7 +28,7 @@ public class ProjectCreateTest {
         faker = new Faker();
         expectedProject = Project.builder()
                 .title(faker.name().title())
-                .code(faker.animal().name().toUpperCase())
+                .code(faker.name().firstName().toUpperCase())
                 .description(faker.animal().name())
                 .access("none")
                 .build();
@@ -56,6 +56,7 @@ public class ProjectCreateTest {
         assertThat(actGetProjectsResponse.getResult().getEntities())
                 .as("List should contain " + actGetProjectResponse.getResult())
                 .contains(actGetProjectResponse.getResult());
+
         projects.add(expectedProject);
     }
 
@@ -88,7 +89,7 @@ public class ProjectCreateTest {
 
     @AfterClass
     public void cleanUp() {
-        for (Project project:projects) {
+        for (Project project : projects) {
             new ProjectApiClient().deleteProject(project.getCode());
         }
     }
