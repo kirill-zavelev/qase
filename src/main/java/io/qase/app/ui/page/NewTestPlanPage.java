@@ -1,6 +1,7 @@
 package io.qase.app.ui.page;
 
-import com.codeborne.selenide.Condition;
+import io.qase.app.api.dto.request.Case;
+import io.qase.app.ui.dto.TestPlan;
 import org.openqa.selenium.By;
 
 import static com.codeborne.selenide.Condition.enabled;
@@ -9,28 +10,39 @@ import static com.codeborne.selenide.Selenide.$;
 
 public class NewTestPlanPage {
 
-    private static final String CHECKBOX = "//p[text()='%s']//ancestor::div[@class='suitecase']//div[@class='checkbox']";
+    private static final String CASE_CHECKBOX = "//p[text()='%s']//ancestor::div[@class='suitecase']" +
+            "//div[@class='checkbox']";
+    private static final By TITLE_INPUT = By.id("title");
+    private static final By DESCRIPTION_INPUT = By.xpath("//p[@class='gYZSEd']");
+    private static final By ADD_CASES_BTN = By.id("edit-plan-add-cases-button");
+    private static final By DONE_BTN = By.xpath("//span[text()='Done']");
+    private static final By SUITE_BTN = By.id("suite-0");
+    private static final By SAVE_PLAN_BTN = By.id("save-plan");
 
-    public NewTestPlanPage fillTitle(String title) {
-        $(By.id("title")).shouldBe(visible, enabled).sendKeys(title);
-        $(By.xpath("//p[@class='gYZSEd']")).shouldBe(visible, enabled).sendKeys(title);
+    public NewTestPlanPage fillTitle(TestPlan testPlan) {
+        $(TITLE_INPUT).shouldBe(visible, enabled).sendKeys(testPlan.getTitle());
+        return this;
+    }
+
+    public NewTestPlanPage fillDescription(TestPlan testPlan) {
+        $(DESCRIPTION_INPUT).shouldBe(visible, enabled).sendKeys(testPlan.getDescription());
         return this;
     }
 
     public NewTestPlanPage clickAddCases() {
-        $(By.id("edit-plan-add-cases-button")).shouldBe(enabled).click();
+        $(ADD_CASES_BTN).shouldBe(enabled).click();
         return this;
     }
 
-    public NewTestPlanPage selectCase(String caseTitle) {
-        $(By.id("suite-0")).shouldBe(visible, enabled).click();
-        $(By.xpath(String.format(CHECKBOX, caseTitle))).shouldBe(enabled).click();
-        $(By.xpath("//span[text()='Done']")).shouldBe(visible, enabled).click();
+    public NewTestPlanPage selectCase(Case testCase) {
+        $(SUITE_BTN).shouldBe(visible, enabled).click();
+        $(By.xpath(String.format(CASE_CHECKBOX, testCase.getTitle()))).shouldBe(enabled).click();
+        $(DONE_BTN).shouldBe(visible, enabled).click();
         return this;
     }
 
     public TestPlanPage clickCreatePlan() {
-        $(By.id("save-plan")).shouldBe(visible, enabled).click();
+        $(SAVE_PLAN_BTN).shouldBe(visible, enabled).click();
         return new TestPlanPage();
     }
 }
