@@ -11,26 +11,23 @@ import io.qase.app.api.dto.response.testcase.PostCaseResponse;
 import io.qase.app.ui.dto.TestPlan;
 import io.qase.app.ui.page.*;
 import org.apache.http.HttpStatus;
-import org.assertj.core.api.Assertions;
-import org.testng.annotations.AfterClass;
-import org.testng.annotations.BeforeClass;
-import org.testng.annotations.Test;
+import org.testng.annotations.*;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-public class TestPlanTest {
+public class TestPlanTest extends BaseTest {
 
     private Faker faker;
     private Project expectedProject;
-    private Case expectedCase;
+    private Case testCase;
     private TestPlan expectedTestPlan;
     private List<Project> projects;
     private ProjectsPage projectsPage;
 
-    @BeforeClass
+    @BeforeMethod
     public void setUp() {
         projects = new ArrayList<>();
         faker = new Faker();
@@ -41,7 +38,7 @@ public class TestPlanTest {
                 .description(faker.animal().name())
                 .access("none")
                 .build();
-        expectedCase = new Case(faker.company().profession());
+        testCase = new Case(faker.company().profession());
         expectedTestPlan = new TestPlan(faker.team().name(), faker.team().state());
     }
 
@@ -57,30 +54,65 @@ public class TestPlanTest {
         createProject();
 
         PostCaseResponse createdCase = new CaseApiClient()
-                .postAddCase(expectedCase, expectedProject.getCode());
+                .postAddCase(testCase, expectedProject.getCode());
         assertThat(createdCase.isStatus()).as("Status should be true").isTrue();
-        return expectedCase;
+        return testCase;
     }
 
     @Test
-    public void createTestPlan() {
-        Case testCase = createCase();
+    public void createTestPlanWithReuiredFields() {
+        Case expectedTestCase = createCase();
 
+        final String testPlanCreatedMsg = "Test plan was created successfully!";
         String actualTestPlanTitle = new TestPlanPage()
                 .open(expectedProject.getCode())
                 .clickCreatePlan()
                 .fillTitle(expectedTestPlan)
                 .clickAddCases()
-                .selectCase(testCase)
+                .selectCase(expectedTestCase)
                 .clickCreatePlan()
                 .clickView(expectedTestPlan)
-                        .getTestPlanTitle();
-        Assertions.assertThat(new TestPlanPage().getAlertMessage()).isEqualTo("Test plan was created successfully!");
-        Assertions.assertThat(actualTestPlanTitle).isEqualTo(expectedTestPlan.getTitle());
-        System.out.println();
+                .getTestPlanTitle();
+        assertThat(new TestPlanPage().getAlertMessage())
+                .as("Message should be " + testPlanCreatedMsg)
+                .isEqualTo("Test plan was created successfully!");
+        assertThat(actualTestPlanTitle)
+                .as("Title should be " + expectedTestPlan.getTitle())
+                .isEqualTo(expectedTestPlan.getTitle());
+        String actualTestCaseTitle = new TestPlanPage().getTestCaseTitle();
+        assertThat(actualTestCaseTitle)
+                .as("Test case title should be " + expectedTestCase.getTitle())
+                .isEqualTo(expectedTestCase.getTitle());
     }
 
-    @AfterClass
+    @Test
+    public void createTestPlanWithAllFields() {
+        Case expectedTestCase = createCase();
+
+        final String testPlanCreatedMsg = "Test plan was created successfully!";
+        TestPlan actualTestPlan = new TestPlanPage()
+                .open(expectedProject.getCode())
+                .clickCreatePlan()
+                .fillTitle(expectedTestPlan)
+                .fillDescription(expectedTestPlan)
+                .clickAddCases()
+                .selectCase(expectedTestCase)
+                .clickCreatePlan()
+                .clickView(expectedTestPlan)
+                .getTestPlan();
+        assertThat(new TestPlanPage().getAlertMessage())
+                .as("Message should be " + testPlanCreatedMsg)
+                .isEqualTo("Test plan was created successfully!");
+        assertThat(actualTestPlan)
+                .as(actualTestPlan + " should be equal to " + expectedTestPlan)
+                .isEqualTo(expectedTestPlan);
+        String actualTestCaseTitle = new TestPlanPage().getTestCaseTitle();
+        assertThat(actualTestCaseTitle)
+                .as("Test case title should be " + expectedTestCase.getTitle())
+                .isEqualTo(expectedTestCase.getTitle());
+    }
+
+    @AfterMethod
     public void cleanUp() {
         new ProjectApiClient().deleteProject(expectedProject.getCode());
 

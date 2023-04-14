@@ -8,6 +8,7 @@ import org.openqa.selenium.By;
 import static com.codeborne.selenide.Condition.enabled;
 import static com.codeborne.selenide.Condition.visible;
 import static com.codeborne.selenide.Selenide.$;
+import static com.codeborne.selenide.Selenide.$x;
 
 public class TestPlanPage {
 
@@ -42,6 +43,10 @@ public class TestPlanPage {
 
     public String getAlertMessage() {
         return $(By.xpath("//div[@role='alert']//span//span")).shouldBe(visible).getText();
-        //Test plan was created successfully!
+    }
+
+    public String getTestCaseTitle() {
+        $(By.id("tab-test-cases")).shouldBe(visible, enabled).click();
+        return $x("//div[@class='testcase-title']//p").shouldBe(visible).getText();
     }
 }
