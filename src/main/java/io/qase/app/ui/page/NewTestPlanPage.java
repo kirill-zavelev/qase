@@ -8,24 +8,25 @@ import static com.codeborne.selenide.Condition.enabled;
 import static com.codeborne.selenide.Condition.visible;
 import static com.codeborne.selenide.Selenide.$;
 
-public class NewTestPlanPage {
+public class NewTestPlanPage extends BasePage {
 
     private static final String CASE_CHECKBOX = "//p[text()='%s']//ancestor::div[@class='suitecase']" +
             "//div[@class='checkbox']";
     private static final By TITLE_INPUT = By.id("title");
-    private static final By DESCRIPTION_INPUT = By.xpath("//p[@class='gYZSEd']");
+    private static final By DESCRIPTION_INPUT = By.xpath("//label[text()='Description']" +
+            "//ancestor::div[@class='form-group qaOPP6']//div[@class='toastui-editor-ww-container']//p");
     private static final By ADD_CASES_BTN = By.id("edit-plan-add-cases-button");
     private static final By DONE_BTN = By.xpath("//span[text()='Done']");
     private static final By SUITE_BTN = By.id("suite-0");
     private static final By SAVE_PLAN_BTN = By.id("save-plan");
 
     public NewTestPlanPage fillTitle(TestPlan testPlan) {
-        $(TITLE_INPUT).shouldBe(visible, enabled).sendKeys(testPlan.getTitle());
+        clearFieldAndFill(TITLE_INPUT, testPlan.getTitle());
         return this;
     }
 
     public NewTestPlanPage fillDescription(TestPlan testPlan) {
-        $(DESCRIPTION_INPUT).shouldBe(visible, enabled).sendKeys(testPlan.getDescription());
+        clearFieldAndFill(DESCRIPTION_INPUT, testPlan.getDescription());
         return this;
     }
 
@@ -41,7 +42,7 @@ public class NewTestPlanPage {
         return this;
     }
 
-    public TestPlanPage clickCreatePlan() {
+    public TestPlanPage clickSave() {
         $(SAVE_PLAN_BTN).shouldBe(visible, enabled).click();
         return new TestPlanPage();
     }

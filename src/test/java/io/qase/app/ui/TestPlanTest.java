@@ -10,6 +10,7 @@ import io.qase.app.api.dto.response.singleproject.PostProjectResponse;
 import io.qase.app.api.dto.response.testcase.PostCaseResponse;
 import io.qase.app.ui.dto.TestPlan;
 import io.qase.app.ui.page.*;
+import io.qase.app.ui.step.TestPlanSteps;
 import org.apache.http.HttpStatus;
 import org.testng.annotations.*;
 
@@ -60,18 +61,12 @@ public class TestPlanTest extends BaseTest {
     }
 
     @Test
-    public void createTestPlanWithReuiredFields() {
+    public void createTestPlanWithRequiredFields() {
         Case expectedTestCase = createCase();
 
         final String testPlanCreatedMsg = "Test plan was created successfully!";
-        String actualTestPlanTitle = new TestPlanPage()
-                .open(expectedProject.getCode())
-                .clickCreatePlan()
-                .fillTitle(expectedTestPlan)
-                .clickAddCases()
-                .selectCase(expectedTestCase)
-                .clickCreatePlan()
-                .clickView(expectedTestPlan)
+        String actualTestPlanTitle = new TestPlanSteps()
+                .createTestPlanWithRequiredFields(expectedProject, expectedTestPlan, expectedTestCase)
                 .getTestPlanTitle();
         assertThat(new TestPlanPage().getAlertMessage())
                 .as("Message should be " + testPlanCreatedMsg)
@@ -79,8 +74,7 @@ public class TestPlanTest extends BaseTest {
         assertThat(actualTestPlanTitle)
                 .as("Title should be " + expectedTestPlan.getTitle())
                 .isEqualTo(expectedTestPlan.getTitle());
-        String actualTestCaseTitle = new TestPlanPage().getTestCaseTitle();
-        assertThat(actualTestCaseTitle)
+        assertThat(new TestPlanPage().getTestCaseTitle())
                 .as("Test case title should be " + expectedTestCase.getTitle())
                 .isEqualTo(expectedTestCase.getTitle());
     }
@@ -90,15 +84,8 @@ public class TestPlanTest extends BaseTest {
         Case expectedTestCase = createCase();
 
         final String testPlanCreatedMsg = "Test plan was created successfully!";
-        TestPlan actualTestPlan = new TestPlanPage()
-                .open(expectedProject.getCode())
-                .clickCreatePlan()
-                .fillTitle(expectedTestPlan)
-                .fillDescription(expectedTestPlan)
-                .clickAddCases()
-                .selectCase(expectedTestCase)
-                .clickCreatePlan()
-                .clickView(expectedTestPlan)
+        TestPlan actualTestPlan = new TestPlanSteps()
+                .createTestPlanWithAllFields(expectedProject, expectedTestPlan, expectedTestCase)
                 .getTestPlan();
         assertThat(new TestPlanPage().getAlertMessage())
                 .as("Message should be " + testPlanCreatedMsg)
@@ -106,10 +93,45 @@ public class TestPlanTest extends BaseTest {
         assertThat(actualTestPlan)
                 .as(actualTestPlan + " should be equal to " + expectedTestPlan)
                 .isEqualTo(expectedTestPlan);
-        String actualTestCaseTitle = new TestPlanPage().getTestCaseTitle();
-        assertThat(actualTestCaseTitle)
+        assertThat(new TestPlanPage().getTestCaseTitle())
                 .as("Test case title should be " + expectedTestCase.getTitle())
                 .isEqualTo(expectedTestCase.getTitle());
+    }
+
+    @Test
+    public void checkTestPlanUpdate() {
+        Case expectedTestCase = createCase();
+        Case expectedTestCaseForUpdate = new Case(new Faker().team().name());
+        new CaseApiClient().postAddCase(expectedTestCaseForUpdate, expectedProject.getCode());
+        TestPlan expectedTestPlanForUpdate = new TestPlan(faker.team().name(), faker.team().state());
+
+        final String testPlanEditedMsg = "Test plan was edited successfully!";
+        TestPlan actualTestPlan = new TestPlanPage()
+                .open(expectedProject.getCode())
+                .clickCreatePlan()
+                .fillTitle(expectedTestPlan)
+                .fillDescription(expectedTestPlan)
+                .clickAddCases()
+                .selectCase(expectedTestCase)
+                .clickSave()
+                .clickEdit(expectedTestPlan)
+                .fillTitle(expectedTestPlanForUpdate)
+                .fillDescription(expectedTestPlanForUpdate)
+                .clickAddCases()
+                .selectCase(expectedTestCase)
+                .selectCase(expectedTestCaseForUpdate)
+                .clickSave()
+                .getTestPlan();
+        assertThat(new TestPlanPage().getAlertMessage())
+                .as("Message should be " + testPlanEditedMsg)
+                .isEqualTo("Test plan was edited successfully!");
+        assertThat(actualTestPlan)
+                .as(actualTestPlan + " should be equal to " + expectedTestPlanForUpdate)
+                .isEqualTo(expectedTestPlanForUpdate);
+        assertThat(new TestPlanPage().getTestCaseTitle())
+                .as("Test case title should be " + expectedTestCaseForUpdate.getTitle())
+                .isEqualTo(expectedTestCaseForUpdate.getTitle());
+
     }
 
     @AfterMethod

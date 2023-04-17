@@ -90,15 +90,6 @@ public class ProjectCreateTest {
                 .isEqualTo(expectedProject.getCode());
     }
 
-    private long createCaseAndGetId() {
-        createProject();
-
-        PostCaseResponse createdCase = new CaseApiClient()
-                .postAddCase(new Case(faker.team().name()), expectedProject.getCode());
-        assertThat(createdCase.isStatus()).as("Status should be true").isTrue();
-        return createdCase.getResult().getId();
-    }
-
     @AfterClass
     public void cleanUp() {
         for (Project project : projects) {

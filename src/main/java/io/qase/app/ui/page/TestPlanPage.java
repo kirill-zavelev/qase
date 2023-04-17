@@ -15,6 +15,7 @@ public class TestPlanPage {
     private static final By TITLE = By.xpath("//h1");
     private static final By DESCRIPTION = By.xpath("//div[@class='lAiioy']//p");
     private static final By VIEW_BTN = By.xpath("//a[text()='View']");
+    private static final By EDIT_BTN = By.xpath("//a[text()='Edit']");
     private static final String PLAN_CONTEXT_MENU = "//a[text()='%s']//ancestor::tbody//button";
 
     public TestPlanPage open(String projectCode) {
@@ -28,8 +29,19 @@ public class TestPlanPage {
     }
 
     public TestPlanPage clickView(TestPlan testPlan) {
-        $(By.xpath(String.format(PLAN_CONTEXT_MENU, testPlan.getTitle()))).shouldBe(visible, enabled).click();
+        openTestPlanContextMenu(testPlan);
         $(VIEW_BTN).shouldBe(visible, enabled).click();
+        return this;
+    }
+
+    public NewTestPlanPage clickEdit(TestPlan testPlan) {
+        openTestPlanContextMenu(testPlan);
+        $(EDIT_BTN).shouldBe(visible, enabled).click();
+        return new NewTestPlanPage();
+    }
+
+    public TestPlanPage openTestPlanContextMenu(TestPlan testPlan) {
+        $(By.xpath(String.format(PLAN_CONTEXT_MENU, testPlan.getTitle()))).shouldBe(visible, enabled).click();
         return this;
     }
 
