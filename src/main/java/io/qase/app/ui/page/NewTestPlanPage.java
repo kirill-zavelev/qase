@@ -1,8 +1,12 @@
 package io.qase.app.ui.page;
 
+import com.codeborne.selenide.Selenide;
+import com.codeborne.selenide.WebDriverRunner;
 import io.qase.app.api.dto.request.Case;
 import io.qase.app.ui.dto.TestPlan;
 import org.openqa.selenium.By;
+import org.openqa.selenium.JavascriptExecutor;
+import org.openqa.selenium.WebElement;
 
 import static com.codeborne.selenide.Condition.enabled;
 import static com.codeborne.selenide.Condition.visible;
@@ -38,6 +42,10 @@ public class NewTestPlanPage extends BasePage {
     public NewTestPlanPage selectCase(Case testCase) {
         $(SUITE_BTN).shouldBe(visible, enabled).click();
         $(By.xpath(String.format(CASE_CHECKBOX, testCase.getTitle()))).shouldBe(enabled).click();
+        return this;
+    }
+
+    public NewTestPlanPage clickDone() {
         $(DONE_BTN).shouldBe(visible, enabled).click();
         return this;
     }
@@ -45,5 +53,9 @@ public class NewTestPlanPage extends BasePage {
     public TestPlanPage clickSave() {
         $(SAVE_PLAN_BTN).shouldBe(visible, enabled).click();
         return new TestPlanPage();
+    }
+
+    public String getAlertMessage() {
+        return Selenide.executeJavaScript("return arguments[0].validationMessage;", $(TITLE_INPUT));
     }
 }

@@ -21,8 +21,8 @@ public class BaseApiClient {
     private final Properties properties;
 
     public BaseApiClient() {
-//        RestAssured.enableLoggingOfRequestAndResponseIfValidationFails();
-        RestAssured.filters(new RequestLoggingFilter(), new ResponseLoggingFilter());
+        RestAssured.enableLoggingOfRequestAndResponseIfValidationFails();
+//        RestAssured.filters(new RequestLoggingFilter(), new ResponseLoggingFilter());
         RestAssured.baseURI = BASE_URL;
         this.properties = PropertiesLoader.loadProperties();
     }

@@ -15,8 +15,8 @@ public class TestPlanSteps {
                 .fillDescription(testPlan)
                 .clickAddCases()
                 .selectCase(testCase)
-                .clickSave()
-                .clickView(testPlan);
+                .clickDone()
+                .clickSave();
         return new TestPlanPage();
     }
 
@@ -27,8 +27,32 @@ public class TestPlanSteps {
                 .fillTitle(testPlan)
                 .clickAddCases()
                 .selectCase(testCase)
+                .clickDone()
+                .clickSave();
+        return new TestPlanPage();
+    }
+
+    public TestPlanPage deleteTestPlan(Project project, TestPlan testPlan, Case testCase) {
+        return new TestPlanPage()
+                .open(project.getCode())
+                .clickCreatePlan()
+                .fillTitle(testPlan)
+                .clickAddCases()
+                .selectCase(testCase)
+                .clickDone()
                 .clickSave()
-                .clickView(testPlan);
+                .clickDelete(testPlan);
+    }
+
+    public TestPlanPage updateTestPlan(TestPlan testPlan, TestPlan updatedTestPlan, Case updatedTestCase) {
+        new TestPlanPage()
+                .clickEdit(testPlan)
+                .fillTitle(updatedTestPlan)
+                .fillDescription(updatedTestPlan)
+                .clickAddCases()
+                .selectCase(updatedTestCase)
+                .clickDone()
+                .clickSave();
         return new TestPlanPage();
     }
 }
