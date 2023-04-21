@@ -1,4 +1,4 @@
-package io.qase.app.dto;
+package io.qase.app.ui.dto;
 
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;

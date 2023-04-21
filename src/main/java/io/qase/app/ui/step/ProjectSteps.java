@@ -1,8 +1,8 @@
-package io.qase.app.step;
+package io.qase.app.ui.step;
 
-import io.qase.app.dto.Project;
-import io.qase.app.page.ProjectPage;
-import io.qase.app.page.ProjectsPage;
+import io.qase.app.ui.dto.Project;
+import io.qase.app.ui.page.ProjectPage;
+import io.qase.app.ui.page.ProjectsPage;
 
 public class ProjectSteps {
 

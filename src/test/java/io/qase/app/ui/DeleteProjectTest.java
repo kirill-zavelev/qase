@@ -1,9 +1,9 @@
-package io.qase.app;
+package io.qase.app.ui;
 
 import com.github.javafaker.Faker;
-import io.qase.app.dto.Project;
-import io.qase.app.page.LoginPage;
-import io.qase.app.page.SettingsPage;
+import io.qase.app.ui.dto.Project;
+import io.qase.app.ui.page.LoginPage;
+import io.qase.app.ui.page.SettingsPage;
 import org.assertj.core.api.Assertions;
 import org.testng.annotations.Test;
 

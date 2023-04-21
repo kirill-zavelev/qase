@@ -1,7 +1,7 @@
-package io.qase.app.page;
+package io.qase.app.ui.page;
 
 import com.codeborne.selenide.Selenide;
-import io.qase.app.util.PropertiesLoader;
+import io.qase.app.ui.util.PropertiesLoader;
 import org.openqa.selenium.By;
 
 import java.util.Properties;

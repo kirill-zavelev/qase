@@ -1,4 +1,4 @@
-package io.qase.app;
+package io.qase.app.ui;
 
 import com.codeborne.selenide.Selenide;
 import org.testng.annotations.AfterMethod;

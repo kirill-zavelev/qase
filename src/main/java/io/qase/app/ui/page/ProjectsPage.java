@@ -1,4 +1,4 @@
-package io.qase.app.page;
+package io.qase.app.ui.page;
 
 import com.codeborne.selenide.Selenide;
 import org.openqa.selenium.By;
