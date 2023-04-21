@@ -13,6 +13,7 @@
    <li>Check that project can be deleted in ProjectsPage</li>
 </ol>
 
+<h1>Graduation project description</h1>
 <h2>Check-list for test-plans:</h2>
 <ol type="1">
    <li>Check that test-plan can be created with required fields (Title and test case)</li>
@@ -20,8 +21,17 @@
    <li>Check that test-plan can be updated with different Title, Description and Test case</li>
    <li>Check that test-plan can be deleted</li>
    <li>Check that test-plan can be created with the same name, that already exists</li>
-   <li>Try to create plan w/o Title and validate the error</li>
    <li>Try to create plan w/o test case and validate the error</li>
    <li>Try to update plan with empty Title and validate the error</li>
    <li>Try to update plan w/o test case and validate the error</li>
+
+<h2>Check-list for login:</h2>
+   <li>Check that user, that exists in DB can log in</li>
+   <li>Check that user with invalid email, valid password can not log in</li>
+   <li>Check that user with valid email, invalid password can not log in</li>
+   <li>Check that user with missed "at" in email, valid password can not log in</li>
+   <li>Check that user with dot(.) after "at" in email, valid password can not log in</li>
+   <li>Check that user with "at", but w/o domain in email, valid password can not log in</li>
+   <li>Check that user with double "at" in email, valid password can not log in</li>
+   <li>Check that user with empty email, valid password can not log in</li>
 </ol>

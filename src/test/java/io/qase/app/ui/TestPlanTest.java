@@ -1,6 +1,8 @@
 package io.qase.app.ui;
 
 import com.github.javafaker.Faker;
+import io.netty.util.internal.StringUtil;
+import io.qameta.allure.Description;
 import io.qase.app.api.client.ProjectApiClient;
 import io.qase.app.api.dto.request.Case;
 import io.qase.app.api.dto.request.Project;
@@ -36,10 +38,11 @@ public class TestPlanTest extends BaseTest {
     }
 
     @Test
+    @Description("Test checks that Test Plan can be created with required fields")
     public void checkTestPlanCreationWithRequiredFields() {
         Case expectedTestCase = new TestCaseFactory().generateTestCase(expectedProject);
-
         final String testPlanCreatedMsg = "Test plan was created successfully!";
+
         String actualTestPlanTitle = new TestPlanSteps()
                 .createTestPlanWithRequiredFields(expectedProject, expectedTestPlan.getTitle(), expectedTestCase)
                 .clickView(expectedTestPlan.getTitle())
@@ -56,12 +59,13 @@ public class TestPlanTest extends BaseTest {
     }
 
     @Test
+    @Description("Test checks that Test Plan can not be created w/o required fields")
     public void checkTestPlanCreationWithoutRequiredFields() {
         Case expectedTestCase = new TestCaseFactory().generateTestCase(expectedProject);
-        expectedTestPlan.setTitle("");
-
+        expectedTestPlan.setTitle(StringUtil.EMPTY_STRING);
         final String expectedInlineAlertMsg = "Please fill in this field.";
         final String expectedAlertMsg = "The cases field is required.";
+
         new TestPlanSteps()
                 .createTestPlanWithRequiredFields(expectedProject, expectedTestPlan.getTitle(), expectedTestCase);
         String actualInlineAlertMsg = new NewTestPlanPage().getInlineAlertMessage();
@@ -82,24 +86,26 @@ public class TestPlanTest extends BaseTest {
     }
 
     @Test
+    @Description("Test checks that Test Plan can be deleted")
     public void checkTestPlanDelete() {
         TestPlanApi testPlan = new TestPlanFactory(expectedProject).generateTestPlan();
+        final String expectedAlertMsg = "Looks like you don’t have any fields yet.";
 
         String actualAlertMsg = new TestPlanPage()
                 .open(expectedProject.getCode())
                 .clickDelete(testPlan.getTitle())
                 .getEmptyTestPlansMessage();
-        final String expectedAlertMsg = "Looks like you don’t have any fields yet.";
         assertThat(actualAlertMsg)
                 .as("Alert should be " + expectedAlertMsg)
                 .isEqualTo(expectedAlertMsg);
     }
 
     @Test
+    @Description("Test checks that Test Plan can be created with all available fields")
     public void checkTestPlanCreationWithAllFields() {
         Case expectedTestCase = new TestCaseFactory().generateTestCase(expectedProject);
-
         final String testPlanCreatedMsg = "Test plan was created successfully!";
+
         TestPlan actualTestPlan = new TestPlanSteps()
                 .createTestPlanWithAllFields(expectedProject, expectedTestPlan.getTitle(),
                         expectedTestPlan.getDescription(), expectedTestCase)
@@ -107,7 +113,7 @@ public class TestPlanTest extends BaseTest {
                 .getTestPlan();
         assertThat(new TestPlanPage().getAlertMessage())
                 .as("Message should be " + testPlanCreatedMsg)
-                .isEqualTo("Test plan was created successfully!");
+                .isEqualTo(testPlanCreatedMsg);
         assertThat(actualTestPlan)
                 .as(actualTestPlan + " should be equal to " + expectedTestPlan)
                 .isEqualTo(expectedTestPlan);
@@ -117,6 +123,7 @@ public class TestPlanTest extends BaseTest {
     }
 
     @Test
+    @Description("Test checks that Test Plan can be updated")
     public void checkTestPlanUpdate() {
         TestPlanFactory testPlanFactory = new TestPlanFactory(expectedProject);
         TestPlanApi testPlan = testPlanFactory.generateTestPlan();
@@ -141,6 +148,7 @@ public class TestPlanTest extends BaseTest {
     }
 
     @Test
+    @Description("Test checks that Test Plan can not be updated w/o required fields")
     public void checkTestPlanUpdateWithoutRequiredFields() {
         final String expectedInlineAlertMsg = "Please fill in this field.";
         final String expectedAlertMsg = "The cases field is required.";
@@ -149,7 +157,7 @@ public class TestPlanTest extends BaseTest {
 
         TestPlanPage testPlanPage = new TestPlanPage();
         testPlanPage.open(expectedProject.getCode()).clickEdit(testPlan.getTitle());
-        testPlan.setTitle("");
+        testPlan.setTitle(StringUtil.EMPTY_STRING);
         NewTestPlanPage newTestPlanPage = new NewTestPlanPage();
         newTestPlanPage.fillTitle(testPlan.getTitle()).clickSave();
         assertThat(newTestPlanPage.getInlineAlertMessage())
