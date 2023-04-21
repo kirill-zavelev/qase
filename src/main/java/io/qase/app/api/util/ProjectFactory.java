@@ -3,11 +3,7 @@ package io.qase.app.api.util;
 import com.github.javafaker.Faker;
 import io.qase.app.api.client.ProjectApiClient;
 import io.qase.app.api.dto.request.Project;
-import io.qase.app.api.dto.response.singleproject.PostProjectResponse;
-import lombok.AllArgsConstructor;
 import lombok.Data;
-
-import static org.assertj.core.api.Assertions.assertThat;
 
 @Data
 public class ProjectFactory {

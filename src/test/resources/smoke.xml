@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
+<suite name="Smoke" parallel="classes" thread-count="2">
+    <listeners>
+        <listener class-name="io.qase.app.util.testng.AnnotationTransformer"/>
+        <listener class-name="io.qase.app.util.testng.TestListener"/>
+    </listeners>
+    <test name="Smoke tests">
+        <classes>
+            <class name="io.qase.app.ui.LoginTest">
+                <methods>
+                    <include name="checkSuccessfulLogin"/>
+                </methods>
+            </class>
+            <class name="io.qase.app.ui.TestPlanTest">
+                <methods>
+                    <include name="checkTestPlanCreationWithRequiredFields"/>
+                    <include name="checkTestPlanDelete"/>
+                    <include name="checkTestPlanUpdate"/>
+                </methods>
+            </class>
+            <parameter name="browser" value="chrome"/>
+        </classes>
+    </test>
+</suite>

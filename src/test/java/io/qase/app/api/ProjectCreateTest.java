@@ -1,14 +1,11 @@
 package io.qase.app.api;
 
 import com.github.javafaker.Faker;
-import io.qase.app.api.client.CaseApiClient;
 import io.qase.app.api.client.ProjectApiClient;
-import io.qase.app.api.dto.request.Case;
 import io.qase.app.api.dto.request.Project;
 import io.qase.app.api.dto.response.multipleprojects.GetProjectsResponse;
 import io.qase.app.api.dto.response.singleproject.GetProjectResponse;
 import io.qase.app.api.dto.response.singleproject.PostProjectResponse;
-import io.qase.app.api.dto.response.testcase.PostCaseResponse;
 import org.apache.http.HttpStatus;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;

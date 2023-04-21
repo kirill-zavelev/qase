@@ -6,12 +6,10 @@ import io.qase.app.api.dto.request.Case;
 import io.qase.app.api.dto.request.Project;
 import lombok.Data;
 
-import static org.assertj.core.api.Assertions.assertThat;
-
 @Data
 public class TestCaseFactory {
 
-    private static Case testCase;
+    private Case testCase;
     private Faker faker;
 
     public TestCaseFactory() {
@@ -22,5 +20,9 @@ public class TestCaseFactory {
     public Case generateTestCase(Project project) {
         new CaseApiClient().postAddCase(testCase, project.getCode());
         return testCase;
+    }
+
+    public Long getTestCaseId(Project project) {
+        return new CaseApiClient().postAddCase(testCase, project.getCode()).getResult().getId();
     }
 }

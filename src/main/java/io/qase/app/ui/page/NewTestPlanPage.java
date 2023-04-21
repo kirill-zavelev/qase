@@ -1,17 +1,14 @@
 package io.qase.app.ui.page;
 
-import com.codeborne.selenide.Selenide;
-import com.codeborne.selenide.WebDriverRunner;
 import io.qase.app.api.dto.request.Case;
-import io.qase.app.ui.dto.TestPlan;
+import lombok.extern.log4j.Log4j2;
 import org.openqa.selenium.By;
-import org.openqa.selenium.JavascriptExecutor;
-import org.openqa.selenium.WebElement;
 
 import static com.codeborne.selenide.Condition.enabled;
 import static com.codeborne.selenide.Condition.visible;
 import static com.codeborne.selenide.Selenide.$;
 
+@Log4j2
 public class NewTestPlanPage extends BasePage {
 
     private static final String CASE_CHECKBOX = "//p[text()='%s']//ancestor::div[@class='suitecase']" +
@@ -24,13 +21,15 @@ public class NewTestPlanPage extends BasePage {
     private static final By SUITE_BTN = By.id("suite-0");
     private static final By SAVE_PLAN_BTN = By.id("save-plan");
 
-    public NewTestPlanPage fillTitle(TestPlan testPlan) {
-        clearFieldAndFill(TITLE_INPUT, testPlan.getTitle());
+    public NewTestPlanPage fillTitle(String testPlanTitle) {
+        clearFieldAndFill(TITLE_INPUT, testPlanTitle);
+        log.info("Title was filled with {}", testPlanTitle);
         return this;
     }
 
-    public NewTestPlanPage fillDescription(TestPlan testPlan) {
-        clearFieldAndFill(DESCRIPTION_INPUT, testPlan.getDescription());
+    public NewTestPlanPage fillDescription(String testPlanDescription) {
+        clearFieldAndFill(DESCRIPTION_INPUT, testPlanDescription);
+        log.info("Description was filled with {}", testPlanDescription);
         return this;
     }
 
@@ -55,7 +54,7 @@ public class NewTestPlanPage extends BasePage {
         return new TestPlanPage();
     }
 
-    public String getAlertMessage() {
-        return Selenide.executeJavaScript("return arguments[0].validationMessage;", $(TITLE_INPUT));
+    public String getInlineAlertMessage() {
+        return getInlineAlertMessage(TITLE_INPUT);
     }
 }
