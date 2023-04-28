@@ -131,13 +131,8 @@ public class TestPlanTest extends BaseTest {
         TestPlan testPlanForUpdate = new TestPlan(faker.team().name(), faker.team().state());
         TestPlanPage testPlanPage = new TestPlanPage();
         testPlanPage.open(expectedProject.getCode()).clickEdit(testPlan.getTitle());
-        TestPlan actualTestPlan = new NewTestPlanPage().fillTitle(testPlanForUpdate.getTitle())
-                .fillDescription(testPlanForUpdate.getDescription())
-                .clickAddCases()
-                .selectCase(testCaseForUpdate)
-                .clickDone()
-                .clickSave()
-                .clickView(testPlanForUpdate.getTitle())
+        TestPlan actualTestPlan = new TestPlanSteps()
+                .updateTestPlan(testPlanForUpdate, testCaseForUpdate)
                 .getTestPlan();
         assertThat(actualTestPlan)
                 .as(actualTestPlan + " should be equal to " + testPlanForUpdate)
