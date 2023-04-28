@@ -156,7 +156,7 @@ public class TestPlanTest extends BaseTest {
         TestPlanApi testPlan = testPlanFactory.generateTestPlan();
 
         TestPlanPage testPlanPage = new TestPlanPage();
-        testPlanPage.open(expectedProject.getCode()).clickEdit(testPlan.getTitle());
+        testPlanPage.open(expectedProject.getCode()).openTestPlanContextMenu(testPlan.getTitle());
         testPlan.setTitle(StringUtil.EMPTY_STRING);
         NewTestPlanPage newTestPlanPage = new NewTestPlanPage();
         newTestPlanPage.fillTitle(testPlan.getTitle()).clickSave();

@@ -1,9 +1,5 @@
 package io.qase.app.util.testng;
 
-import io.qase.app.util.allure.AllureUtil;
-import org.openqa.selenium.NoSuchSessionException;
-import org.openqa.selenium.WebDriver;
-import org.testng.ITestContext;
 import org.testng.ITestListener;
 import org.testng.ITestResult;
 
@@ -31,24 +27,9 @@ public class TestListener implements ITestListener {
     public void onTestFailure(ITestResult result) {
         System.out.printf("======= FAILED TEST %s Duration: %ss ========%n", result.getName(),
                 getExecutionTime(result));
-        takeScreenshot(result);
     }
 
     private long getExecutionTime(ITestResult result) {
         return TimeUnit.MILLISECONDS.toSeconds(result.getEndMillis() - result.getStartMillis());
-    }
-
-    private byte[] takeScreenshot(ITestResult result) {
-        ITestContext context = result.getTestContext();
-        try {
-            WebDriver driver = (WebDriver) context.getAttribute("driver");
-            if (driver != null) {
-                return AllureUtil.takeScreenshot(driver);
-            } else {
-                return new byte[]{};
-            }
-        } catch (NoSuchSessionException | IllegalStateException ex) {
-            return new byte[]{};
-        }
     }
 }
