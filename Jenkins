@@ -13,7 +13,7 @@ pipeline {
                 git 'https://github.com/kirill-zavelev/qase.git'
 
                 // Run Maven on a Unix agent.
-                sh "mvn clean test -DsuiteXmlFile=src/test/resources/testng.xml"
+                sh "mvn clean test -DsuiteXmlFile=src/test/resources/regression.xml"
 
                 // To run Maven on a Windows agent, use
                 // bat "mvn clean test -DsuiteXmlFile=src/test/resources/testng.xml"
