@@ -8,7 +8,7 @@ pipeline {
 
     parameters {
         gitParameter branchFilter: 'origin/(.*)', defaultValue: 'master', description: 'Select branch', name: 'BRANCH', type: 'PT_BRANCH'
-        choice choices: ['regression.xml', 'smoke.xml', 'testng.xml', 'negative.xml'], name: 'TEST_NG_XML'
+        choice choices: ['src/test/resources/regression.xml', 'src/test/resources/smoke.xml', 'src/test/resources/testng.xml', 'src/test/resources/negative.xml'], name: 'TEST_NG_XML'
     }
 
     stages {
