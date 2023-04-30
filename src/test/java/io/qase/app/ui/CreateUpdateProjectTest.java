@@ -7,10 +7,11 @@ import io.qase.app.ui.page.ProjectPage;
 import io.qase.app.ui.page.ProjectsPage;
 import io.qase.app.ui.page.SettingsPage;
 import io.qase.app.ui.step.ProjectSteps;
-import org.testng.annotations.*;
+import org.testng.annotations.AfterMethod;
+import org.testng.annotations.BeforeMethod;
+import org.testng.annotations.Test;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -66,6 +67,7 @@ public class CreateUpdateProjectTest extends BaseTest {
         assertThat(projectPage.getProjectName())
                 .as("Project name should be " + expectedProjectName)
                 .isEqualTo(expectedProjectName);
+        projects.add(project);
     }
 
     @Test
@@ -83,11 +85,11 @@ public class CreateUpdateProjectTest extends BaseTest {
         assertThat(projectPage.clickSettings().getProject())
                 .as("Projects are not equal")
                 .isEqualTo(project);
+        projects.add(project);
     }
 
     @AfterMethod
     public void cleanUp() {
-        Collections.addAll(projects, project);
         projectsPage.open().isOpened();
         List<String> projectsNames = projects.stream()
                 .map(Project::getProjectName)
@@ -95,6 +97,5 @@ public class CreateUpdateProjectTest extends BaseTest {
         for (String projectName : projectsNames) {
             projectsPage.deleteProject(projectName);
         }
-        projects = null;
     }
 }
