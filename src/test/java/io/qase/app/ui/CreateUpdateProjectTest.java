@@ -34,7 +34,6 @@ public class CreateUpdateProjectTest extends BaseTest {
                 .projectCode(faker.number().digits(3))
                 .description(faker.company().industry())
                 .build();
-        projects.add(project);
     }
 
     @Test
@@ -98,6 +97,7 @@ public class CreateUpdateProjectTest extends BaseTest {
         for (String projectName : projectsNames) {
             projectsPage.deleteProject(projectName);
         }
-        projects = null;
+        System.out.println();
+
     }
 }

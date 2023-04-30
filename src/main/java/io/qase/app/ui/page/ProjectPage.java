@@ -10,7 +10,7 @@ public class ProjectPage {
 
     public static final By TITLE = By.xpath("//h1");
     public static final By SETTINGS_LOCATOR = By.xpath("//a[@title='Settings']");
-    public static final By PROJECT_NAME_LOCATOR = By.xpath("//div[@class='sqabXr']");
+    public static final By PROJECT_NAME_LOCATOR = By.xpath("//div[@class='LALnEw']");
 
     public boolean isOpened() {
         return $(SETTINGS_LOCATOR).shouldBe(visible, enabled).isDisplayed();

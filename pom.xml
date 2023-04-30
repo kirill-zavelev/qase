@@ -25,6 +25,7 @@
         <apache.commons-lang3.version>3.12.0</apache.commons-lang3.version>
         <dataformat.yaml.version>2.12.3</dataformat.yaml.version>
         <log4j-core.version>2.20.0</log4j-core.version>
+        <allure-selenide.version>2.21.0</allure-selenide.version>
 
         <suiteXmlFile>src/test/resources/regression.xml</suiteXmlFile>
     </properties>
@@ -130,7 +131,7 @@
         <dependency>
             <groupId>io.qameta.allure</groupId>
             <artifactId>allure-selenide</artifactId>
-            <version>2.21.0</version>
+            <version>${allure-selenide.version}</version>
         </dependency>
     </dependencies>
 </project>
