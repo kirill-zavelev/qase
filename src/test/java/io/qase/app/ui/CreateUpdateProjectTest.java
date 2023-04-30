@@ -97,7 +97,5 @@ public class CreateUpdateProjectTest extends BaseTest {
         for (String projectName : projectsNames) {
             projectsPage.deleteProject(projectName);
         }
-        System.out.println();
-
     }
 }

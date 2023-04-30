@@ -14,6 +14,19 @@
 </ol>
 
 <h1>Graduation project description</h1>
+<ul><b>Technology stack:</b></ul>
+<li> Programming language: Java</li>
+<li> Automation frameworks: Selenide, TestNG, RestAssured</li>
+<li> Reporting tool: Allure</li>
+<li> Logging tool: log4j2</li>
+<li> CI tool: Jenkins</li>
+<li> Build tool: Maven</li>
+<ul><b>Guide how to run tests locally:</b></ul>
+<ol type="1">
+<li>Select configuration via Maven and in "Run" field enter "clean test -DsuiteXmlFile=src/test/resources/testng.xml"</li>
+<li>After run is finished, to generate report: open "Plugins", expand "allure", double click on "allure:serve"</li>
+</ol>
+
 <h2>Check-list for test-plans:</h2>
 <ol type="1">
    <li>Check that test-plan can be created with required fields (Title and test case)</li>
