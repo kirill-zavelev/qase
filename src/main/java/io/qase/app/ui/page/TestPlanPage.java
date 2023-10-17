@@ -21,7 +21,7 @@ public class TestPlanPage {
     private static final By VIEW_BTN = By.xpath("//a[text()='View']");
     private static final By EDIT_BTN = By.xpath("//a[text()='Edit']");
     private static final By CREATE_BTN = By.id("createButton");
-    private static final By DELETE_BTN = By.xpath("//li[text()='Delete']");
+    private static final By DELETE_BTN = By.xpath("//button[text()='Delete']");
     private static final By DELETE_CONFIRMATION_BTN = By.xpath("//span[text()='Delete plan']");
     private static final By ALERT_LOCATOR = By.xpath("//div[@role='alert']//span//span");
     private static final By EMPTY_PLANS_LOCATOR = By.xpath("//div[@class='npCN4H']");

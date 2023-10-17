@@ -9,9 +9,9 @@ import static com.codeborne.selenide.WebDriverRunner.getWebDriver;
 
 public class LoginPage extends BasePage {
 
-    private static final By EMAIL_INPUT = By.id("inputEmail");
-    private static final By PASSWORD_INPUT = By.id("inputPassword");
-    private static final By LOGIN_BTN = By.id("btnLogin");
+    private static final By EMAIL_INPUT = By.name("email");
+    private static final By PASSWORD_INPUT = By.name("password");
+    private static final By LOGIN_BTN = By.xpath("//span[text()='Sign in']");
     private static final By LOGIN_ERROR = By.xpath("//div[@data-qase-test='login-error']");
 
     public LoginPage open() {

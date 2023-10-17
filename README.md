@@ -21,6 +21,7 @@
 <li> Logging tool: log4j2</li>
 <li> CI tool: Jenkins</li>
 <li> Build tool: Maven</li>
+
 <ul><b>Guide how to run tests locally:</b></ul>
 <ol type="1">
 <li>Select configuration via Maven and in "Run" field enter "clean test -DsuiteXmlFile=src/test/resources/testng.xml"</li>
