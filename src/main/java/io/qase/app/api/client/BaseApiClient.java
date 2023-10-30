@@ -2,6 +2,8 @@ package io.qase.app.api.client;
 
 import io.qase.app.ui.util.PropertiesLoader;
 import io.restassured.RestAssured;
+import io.restassured.filter.log.RequestLoggingFilter;
+import io.restassured.filter.log.ResponseLoggingFilter;
 import io.restassured.http.ContentType;
 import io.restassured.response.Response;
 import io.restassured.specification.RequestSpecification;
@@ -28,6 +30,20 @@ public class BaseApiClient {
     public <R> R post(String path, Object body, Class<R> responseClass) {
         return getRequestSpecification()
                 .header(TOKEN, properties.getProperty("standard.token"))
+                .body(body)
+                .when()
+                .post(path)
+                .then()
+                .statusCode(HttpStatus.SC_OK)
+                .extract()
+                .body()
+                .as(responseClass);
+    }
+
+    public <R> R post(String path, Map<String, ?> parameterNameValuePairs, Object body, Class<R> responseClass) {
+        return getRequestSpecification()
+                .header(TOKEN, properties.getProperty("standard.token"))
+                .pathParams(parameterNameValuePairs)
                 .body(body)
                 .when()
                 .post(path)

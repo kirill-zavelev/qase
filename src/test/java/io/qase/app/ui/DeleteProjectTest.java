@@ -27,7 +27,8 @@ public class DeleteProjectTest extends BaseTest {
                 .clickSettings()
                 .clickDeleteProject();
         String actualAlert = settingsPage.getDeleteAlert();
-        final String expectedAlert = "Are you sure, that you want delete project \"" + project.getProjectName() + "\"";
+        final String expectedAlert = "Are you sure that you want to delete the project \"" + project.getProjectName()
+                + "\"?";
         Assertions.assertThat(actualAlert)
                 .as("The message after delete should be: " + expectedAlert)
                 .isEqualTo(expectedAlert);
